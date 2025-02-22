@@ -28,8 +28,6 @@ export async function buyCourse(token, coursesId, userDetails, navigate, dispatc
     const toastId = toast.loading("Loading...");
 
     try {
-       
-        
         //load the script
         const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
@@ -38,19 +36,17 @@ export async function buyCourse(token, coursesId, userDetails, navigate, dispatc
             return;
         }
 
-        // console.log("Hi");
         // initiate the order
         const orderResponse = await apiConnector("POST", COURSE_PAYMENT_API,
             { coursesId },
             {
                 Authorization: `Bearer ${token}`,
-            });
-            
+            })
         // console.log("orderResponse... ", orderResponse);
         if (!orderResponse.data.success) {
             throw new Error(orderResponse.data.message);
         }
-        
+
         const RAZORPAY_KEY = import.meta.env.VITE_APP_RAZORPAY_KEY;
         // console.log("RAZORPAY_KEY...", RAZORPAY_KEY);
 
