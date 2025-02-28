@@ -38,6 +38,13 @@ export default function Upload({ name, label, register, setValue, errors, video 
     }
   }
 
+  const openFileDialog = () => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  };
+  
+
   useEffect(() => {
     register(name, { required: true })
   }, [register])
@@ -84,10 +91,8 @@ export default function Upload({ name, label, register, setValue, errors, video 
             )}
           </div>
         ) : (
-          <div
-            className="flex w-full flex-col items-center p-6"
-            {...getRootProps()}
-          >
+          <div className="flex w-full flex-col items-center p-6" {...getRootProps()} onClick={openFileDialog}>
+
             <input {...getInputProps()} ref={inputRef} />
             <div className="grid aspect-square w-14 place-items-center rounded-full bg-pure-greys-800">
               <FiUploadCloud className="text-2xl text-yellow-50" />
